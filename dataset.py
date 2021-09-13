@@ -34,7 +34,7 @@ def read_data(image_name,root_X, root_GT, train = True):
     
     gt = np.asarray(h5py.File(gt_path, 'r')['density'])
 
-    if False:
+    if train:
         ratio = 0.5
         crop_size = (int(image.size[0]*ratio),int(image.size[1]*ratio))
         rdn_value = random.random()
@@ -60,5 +60,5 @@ def read_data(image_name,root_X, root_GT, train = True):
     #target = cv2.resize(gt,(int(gt.shape[1]/8),int(gt.shape[0]/8)),interpolation = cv2.INTER_CUBIC)*64
     target = cv2.resize(gt,(gt.shape[1]//8,gt.shape[0]//8),interpolation = cv2.INTER_CUBIC)*64
 
-    return image, gt
+    return image, target
     
