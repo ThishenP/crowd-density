@@ -13,7 +13,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 def main():
-    net = Net([(512,2),(512,2),(512,2),(256,4), (128,4), (64,4)], 23, 512)
+    net = Net([(512,2),(512,2),(512,2),(256,2), (128,2), (64,2)], 23, 512)
     root_ims = 'ShanghaiTech/ShanghaiTech/part_A/train_data/images'
     root_ann = 'ShanghaiTech/ShanghaiTech/part_A/train_data/density_gt'
     im_list = os.listdir(root_ims)
