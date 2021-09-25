@@ -15,9 +15,6 @@ class Net(nn.Module):
         out = self.vgg_layers(image)
         out = self.dilated_layers(out)
         out = self.last(out)
-        #tr = transforms.Resize((image.shape[2],image.shape[3]))
-        #out = tr(out)
-        #out = out
         return out
 
 def create_layers(arc, in_size):
