@@ -66,7 +66,10 @@ def read_data(image_name,root_X, root_GT, train = True):
             gt = np.fliplr(gt)
             image = image.transpose(Image.FLIP_LEFT_RIGHT)
     
-    target = cv2.resize(gt,(gt.shape[1]//8,gt.shape[0]//8),interpolation = cv2.INTER_CUBIC)*64
+    #target = cv2.resize(gt,(gt.shape[1]//8,gt.shape[0]//8),interpolation = cv2.INTER_CUBIC)*64
+    target = cv2.resize(gt,(gt.shape[1]//4,gt.shape[0]//4),interpolation = cv2.INTER_CUBIC)*64
+    #find better method for above (all in preprocessing?)
+
 
     return image, target
     

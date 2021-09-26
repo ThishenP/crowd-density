@@ -19,7 +19,7 @@ def main():
     device
 
 
-    net = Net([(512,2),(512,2),(512,2),(256,2), (128,2), (64,2)], 23, 512)
+    net = Net([(256,2),(256,2), (128,2),(128,2), (64,2)], 16, 256).to(device)
 
     root_ims = 'ShanghaiTech/ShanghaiTech/part_A/train_data/images'
     root_ann = 'ShanghaiTech/ShanghaiTech/part_A/train_data/density_gt'
