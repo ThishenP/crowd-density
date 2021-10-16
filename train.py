@@ -101,7 +101,7 @@ def main():
         print(running_loss/300)
         if wb:
             wandb.log({"loss": running_loss/300})
-        if epoch%50 == 0: 
+        if epoch%100 == 0: 
             torch.save(net, f"models/{run_start_datetime}/model_at_{epoch}.pt")
 
     print('Finished Training')
