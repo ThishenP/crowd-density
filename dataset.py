@@ -18,7 +18,7 @@ class CDEDataset(Dataset):
         self.train = train
     
     def __len__(self):
-        return len(self.root_X)#check if right len
+        return len(self.im_list)#check if right len
     
     def __getitem__(self,index):
         image,gt = read_data(self.im_list[index], self.root_X, self.root_y, train = self.train)
@@ -43,7 +43,7 @@ def read_data(image_name,root_X, root_GT, train = True):
     
     gt = np.asarray(h5py.File(gt_path, 'r')['density'])
 
-    if False:
+    if train:
         ratio = 0.5
         crop_size = (int(image.size[0]*ratio),int(image.size[1]*ratio))
         rdn_value = random.random()
@@ -67,7 +67,7 @@ def read_data(image_name,root_X, root_GT, train = True):
             image = image.transpose(Image.FLIP_LEFT_RIGHT)
     
     #target = cv2.resize(gt,(gt.shape[1]//8,gt.shape[0]//8),interpolation = cv2.INTER_CUBIC)*64
-    target = cv2.resize(gt,(gt.shape[1]//4,gt.shape[0]//4),interpolation = cv2.INTER_CUBIC)*64
+    target = cv2.resize(gt,(gt.shape[1]//4,gt.shape[0]//4),interpolation = cv2.INTER_CUBIC)*16
     #find better method for above (all in preprocessing?)
 
 

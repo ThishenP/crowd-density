@@ -1,0 +1,24 @@
+2021-10-16 21:18:00,739 INFO    MainThread:2784 [wandb_setup.py:_flush():69] setting env: {}
+2021-10-16 21:18:00,740 INFO    MainThread:2784 [wandb_setup.py:_flush():69] setting login settings: {}
+2021-10-16 21:18:00,740 INFO    MainThread:2784 [wandb_init.py:_log_setup():357] Logging user logs to C:\Users\Thishen\Documents\Github\crowd-density\wandb\run-20211016_211800-5764j0wp\logs\debug.log
+2021-10-16 21:18:00,742 INFO    MainThread:2784 [wandb_init.py:_log_setup():358] Logging internal logs to C:\Users\Thishen\Documents\Github\crowd-density\wandb\run-20211016_211800-5764j0wp\logs\debug-internal.log
+2021-10-16 21:18:00,742 INFO    MainThread:2784 [wandb_init.py:init():390] calling init triggers
+2021-10-16 21:18:00,743 INFO    MainThread:2784 [wandb_init.py:init():395] wandb.init called with sweep_config: {}
+config: {}
+2021-10-16 21:18:00,745 INFO    MainThread:2784 [wandb_init.py:init():435] starting backend
+2021-10-16 21:18:00,745 INFO    MainThread:2784 [backend.py:_multiprocessing_setup():70] multiprocessing start_methods=spawn, using: spawn
+2021-10-16 21:18:00,754 INFO    MainThread:2784 [backend.py:ensure_launched():135] starting backend process...
+2021-10-16 21:18:00,824 INFO    MainThread:2784 [backend.py:ensure_launched():139] started backend process with pid: 7524
+2021-10-16 21:18:00,824 INFO    MainThread:2784 [wandb_init.py:init():440] backend started and connected
+2021-10-16 21:18:00,825 INFO    MainThread:2784 [wandb_init.py:init():499] updated telemetry
+2021-10-16 21:18:00,825 INFO    MainThread:2784 [wandb_init.py:init():522] communicating current version
+2021-10-16 21:18:02,156 INFO    MainThread:2784 [wandb_init.py:init():527] got version response 
+2021-10-16 21:18:02,157 INFO    MainThread:2784 [wandb_init.py:init():535] communicating run to backend with 30 second timeout
+2021-10-16 21:18:02,584 INFO    MainThread:2784 [wandb_init.py:init():562] starting run threads in backend
+2021-10-16 21:18:07,605 INFO    MainThread:2784 [wandb_run.py:_console_start():1651] atexit reg
+2021-10-16 21:18:07,605 INFO    MainThread:2784 [wandb_run.py:_redirect():1525] redirect: SettingsConsole.WRAP
+2021-10-16 21:18:07,606 INFO    MainThread:2784 [wandb_run.py:_redirect():1562] Wrapping output streams.
+2021-10-16 21:18:07,606 INFO    MainThread:2784 [wandb_run.py:_redirect():1586] Redirects installed.
+2021-10-16 21:18:07,607 INFO    MainThread:2784 [wandb_init.py:init():587] run started, returning control to user process
+2021-10-16 21:18:07,607 INFO    MainThread:2784 [wandb_config.py:__setitem__():143] config set learning_rate = 1e-07 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001B07C60A700>>
+2021-10-16 21:18:07,607 INFO    MainThread:2784 [wandb_run.py:_config_callback():878] config_cb learning_rate 1e-07 None

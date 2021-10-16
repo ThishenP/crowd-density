@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "train.py", line 91, in <module>
+    main()
+  File "train.py", line 64, in main
+    for i, data in enumerate(train_dataloader, 0):
+  File "C:\Users\Thishen\anaconda3\lib\site-packages\torch\utils\data\dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "C:\Users\Thishen\anaconda3\lib\site-packages\torch\utils\data\dataloader.py", line 561, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "C:\Users\Thishen\anaconda3\lib\site-packages\torch\utils\data\_utils\fetch.py", line 44, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "C:\Users\Thishen\anaconda3\lib\site-packages\torch\utils\data\_utils\fetch.py", line 44, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "C:\Users\Thishen\Documents\Github\crowd-density\dataset.py", line 24, in __getitem__
+    image,gt = read_data(self.im_list[index], self.root_X, self.root_y, train = self.train)
+  File "C:\Users\Thishen\Documents\Github\crowd-density\dataset.py", line 44, in read_data
+    gt = np.asarray(h5py.File(gt_path, 'r')['density'])
+  File "C:\Users\Thishen\anaconda3\lib\site-packages\h5py\_hl\files.py", line 406, in __init__
+    fid = make_fid(name, mode, userblock_size,
+  File "C:\Users\Thishen\anaconda3\lib\site-packages\h5py\_hl\files.py", line 173, in make_fid
+    fid = h5f.open(name, flags, fapl=fapl)
+  File "h5py\_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py\_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py\h5f.pyx", line 88, in h5py.h5f.open
+OSError: Unable to open file (unable to open file: name = '../CDE_Data/train/density_gt/IMG_228.h5', errno = 2, error message = 'No such file or directory', flags = 0, o_flags = 0)

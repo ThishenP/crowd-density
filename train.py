@@ -4,13 +4,30 @@ from torchvision import transforms
 import torch
 import os
 import matplotlib.pyplot as plt
+import argparse
 
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+from sklearn.model_selection import train_test_split
 
+from datetime import datetime
+import wandb
 
+#FIX ARGS not currenlty in use
+def parse_args():
+    parser = argparse.ArgumentParser(description='Train ')
+    parser.add_argument('--wb', default=False,
+                        help='Use Weights and Biases')
+    args = parser.parse_args()
+    return args
 def main():
+    args = parse_args()
+    wb=False ###############
+    if wb:
+        wandb.init(project="cde", entity="thishen")
+        config = wandb.config
+        config.learning_rate = 1e-7
 
     if torch.cuda.is_available(): 
         device = torch.device("cuda:0")
@@ -19,18 +36,25 @@ def main():
     device
 
 
-    net = Net([(256,2),(256,2), (128,2),(128,2), (64,2)], 16, 256).to(device)
+    net = Net([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
 
-    root_ims = 'ShanghaiTech/ShanghaiTech/part_A/train_data/images'
-    root_ann = 'ShanghaiTech/ShanghaiTech/part_A/train_data/density_gt'
+    root_ims = '../CDE_Data/train/images'
+    root_ann = '../CDE_Data/train/density_gt'
     im_list = os.listdir(root_ims)
-    train = CDEDataset(im_list,root_ims,root_ann, transform = transforms.Compose([
+
+    im_list_train, im_list_train_cv = train_test_split(im_list, test_size=0.14, random_state=42)#test_size=0.14
+    train = CDEDataset(im_list_train,root_ims,root_ann, transform = transforms.Compose([
                     transforms.ToTensor(),
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                 ]))
 
-    root_ims = 'ShanghaiTech/ShanghaiTech/part_A/test_data/images'
-    root_ann = 'ShanghaiTech/ShanghaiTech/part_A/test_data/density_gt'
+    cross_valid = CDEDataset(im_list_train_cv,root_ims,root_ann, transform = transforms.Compose([
+                    transforms.ToTensor(),
+                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+                ]))
+
+    root_ims = '../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/images'
+    root_ann = '../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/density_gt'
     im_list = os.listdir(root_ims)
     test = CDEDataset(im_list,root_ims,root_ann, transform  = transforms.Compose([
                     transforms.ToTensor(),
@@ -41,9 +65,16 @@ def main():
     test_dataloader = DataLoader(test, batch_size=1, shuffle=True)
 
     criterion = nn.MSELoss(reduction='sum').to(device)# same as nn.MSELoss(size_average=False)
-    optimizer = optim.SGD(net.parameters(), lr=1e-7, momentum=0.9)
+    
+    optimizer = optim.SGD(net.parameters(), lr=1e-7, momentum=0.9) #lr = 1e-7
 
-    num_epochs = 10
+    num_epochs = 400
+
+    now = datetime.now()
+    
+    run_start_datetime = now.strftime("%d-%m-%Y_%H-%M-%S")
+    os.mkdir(f'models/{run_start_datetime}')
+
 
     for epoch in range(num_epochs):  # loop over the dataset multiple times
 
@@ -61,12 +92,17 @@ def main():
             outputs = net(inputs)
 
             loss = criterion(outputs,labels)
+
             loss.backward()
             optimizer.step()
 
             # print statistics
             running_loss += loss.item()
         print(running_loss/300)
+        if wb:
+            wandb.log({"loss": running_loss/300})
+        if epoch%50 == 0: 
+            torch.save(net, f"models/{run_start_datetime}/model_at_{epoch}.pt")
 
     print('Finished Training')
 
