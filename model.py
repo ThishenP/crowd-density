@@ -19,7 +19,7 @@ class Net(nn.Module):
 
 def create_layers(arc, in_size):
     layers = []
-    layers.append(nn.Conv2d(in_size, arc[0][0], kernel_size=3, padding= 2 ,dilation = arc[0][1]))
+    layers.append(nn.Conv2d(in_size, arc[0][0], kernel_size=3, padding= arc[0][1] ,dilation = arc[0][1]))
     layers.append(nn.ReLU(inplace = True))
     for i in range(1, len(arc)):
         layers.append(nn.Conv2d(arc[i-1][0], arc[i][0], kernel_size=3, padding= 2 ,dilation = arc[i][1]))
