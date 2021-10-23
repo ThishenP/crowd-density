@@ -6,6 +6,7 @@ import numpy as np
 import random
 import cv2
 
+
 ####
 from torchvision import transforms
 
@@ -23,12 +24,18 @@ class CDEDataset(Dataset):
     def __getitem__(self,index):
         image,gt = read_data(self.im_list[index], self.root_X, self.root_y, train = self.train)
 
+        
         tr = transforms.ToTensor()
         gt = tr(gt)
         if self.transform:
             image = self.transform(image)
         else:
             image = tr(image)
+
+        # rc = transforms.RandomCrop((182,299))
+        # if self.train:
+        #     image = rc(image)
+        #     gt = rc(gt)
         
         return image.float(), gt.float()
 
@@ -39,29 +46,21 @@ def read_data(image_name,root_X, root_GT, train = True):
 
     image = image.convert('RGB')
 
+
+
     gt_path = root_GT + f"/{image_name[:-4]}.h5"
     
     gt = np.asarray(h5py.File(gt_path, 'r')['density'])
 
     if train:
         ratio = 0.5
-        crop_size = (int(image.size[0]*ratio),int(image.size[1]*ratio))
-        rdn_value = random.random()
-        if rdn_value<0.25:
-            dx = 0
-            dy = 0
-        elif rdn_value<0.5:
-            dx = int(image.size[0]*ratio)
-            dy = 0
-        elif rdn_value<0.75:
-            dx = 0
-            dy = int(image.size[1]*ratio)
-        else:
-            dx = int(image.size[0]*ratio)
-            dy = int(image.size[1]*ratio)
+        width, height = image.size
+        crop_size = (267,359)
 
-        image = image.crop((dx,dy,crop_size[0]+dx,crop_size[1]+dy))
-        gt = gt[dy:(crop_size[1]+dy),dx:(crop_size[0]+dx)]
+        start = (np.random.randint(0,height - crop_size[0]+1),np.random.randint(0,width - crop_size[1]+1))
+        
+        image = image.crop((start[1],start[0],start[1] + crop_size[1],start[0] + crop_size[0]))
+        gt = gt[start[0]:(start[0] + crop_size[0]),start[1]:(start[1] + crop_size[1])]
         if random.random()>0.8:
             gt = np.fliplr(gt)
             image = image.transpose(Image.FLIP_LEFT_RIGHT)
