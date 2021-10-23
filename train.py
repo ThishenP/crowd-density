@@ -23,7 +23,7 @@ def parse_args():
     return args
 def main():
     args = parse_args()
-    wb=True ###############
+    wb=False ###############
 
     if wb:
         wandb.init(project="cde", entity="thishen")

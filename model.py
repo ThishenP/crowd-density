@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch
 from torchvision import models, transforms
 
 class Net(nn.Module):
@@ -8,13 +9,29 @@ class Net(nn.Module):
         for param in vgg16.features.parameters():
             param.require_grad = False
         self.vgg_layers = vgg16.features[:num_vgg_layers]
+
+        self.aspp1 = nn.Conv2d(num_channels_after_vgg, int(arc[0][0]/4), kernel_size=3, padding= 2 ,dilation = 2)
+        self.aspp2 = nn.Conv2d(num_channels_after_vgg, int(arc[0][0]/4), kernel_size=3, padding= 4 ,dilation = 4)
+        self.aspp3 = nn.Conv2d(num_channels_after_vgg, int(arc[0][0]/4), kernel_size=3, padding= 8 ,dilation = 8)
+        self.aspp4 = nn.Conv2d(num_channels_after_vgg, int(arc[0][0]/4), kernel_size=3, padding= 16 ,dilation = 16)
+
         self.dilated_layers = create_layers(arc, num_channels_after_vgg) #in size may change depending on number of vgg layers
         self.last = nn.Conv2d(arc[-1][0], 1, kernel_size=1)
+        
                 
     def forward(self, image):
-        out = self.vgg_layers(image)
-        out = self.dilated_layers(out)
+        vgg_out = self.vgg_layers(image)
+        x1 = self.aspp1(vgg_out)
+        x2 = self.aspp2(vgg_out)
+        x3 = self.aspp3(vgg_out)
+        x4 = self.aspp4(vgg_out)
+        
+        aspp_out = torch.cat((x1, x2, x3, x4), dim=1)
+        out = self.dilated_layers(aspp_out)
         out = self.last(out)
+
+
+
         return out
 
 def create_layers(arc, in_size):
