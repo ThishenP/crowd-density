@@ -23,7 +23,7 @@ def parse_args():
     return args
 def main():
     args = parse_args()
-    wb=False ###############
+    wb=True ###############
 
     if wb:
         wandb.init(project="cde", entity="thishen")
@@ -62,20 +62,20 @@ def main():
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                 ]))
 
-    train_dataloader = DataLoader(train, batch_size=8, shuffle=True)#batch size of 1 since all different sizes
+    train_dataloader = DataLoader(train, batch_size=6, shuffle=True)#batch size of 1 since all different sizes
     test_dataloader = DataLoader(test, batch_size=1, shuffle=True)
 
     criterion = nn.MSELoss(reduction='sum').to(device)# same as nn.MSELoss(size_average=False)
     
-    optimizer = optim.SGD(net.parameters(), lr=5e-6, momentum=0.9) #lr = 1e-7
+    optimizer = optim.SGD(net.parameters(), lr=1e-5, momentum=0.9) #lr = 1e-7
 
-    num_epochs = 400
+    num_epochs = 800
 
     now = datetime.now()
     
     run_start_datetime = now.strftime("%d-%m-%Y_%H-%M-%S")
     os.mkdir(f'models/{run_start_datetime}')
-
+    os.mkdir(f'../checkpoints/{run_start_datetime}')
 
     for epoch in range(num_epochs):  # loop over the dataset multiple times
 
@@ -100,12 +100,28 @@ def main():
             # print statistics
             running_loss += loss.item()
 
-        print(running_loss/9)
+
+        print(running_loss/48)
         if wb:
-            wandb.log({"loss": running_loss/9})
+            wandb.log({"loss": running_loss/48})
         if epoch%50 == 0: 
+
+            torch.save({
+            'epoch': epoch,
+            'model_state_dict': net.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss,
+
+            }, f"../checkpoints/{run_start_datetime}/checkpoint_at_{epoch}.pt")
             torch.save(net, f"models/{run_start_datetime}/model_at_{epoch}.pt")
-            
+    
+    torch.save({
+            'epoch': epoch,
+            'model_state_dict': net.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss,
+
+            }, f"../checkpoints/{run_start_datetime}/checkpoint_at_{epoch}.pt")
     torch.save(net, f"models/{run_start_datetime}/model_at_{num_epochs}.pt")
     print('Finished Training')
 

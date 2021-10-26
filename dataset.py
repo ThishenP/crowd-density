@@ -4,6 +4,7 @@ from PIL import Image
 from torch.utils.data import Dataset
 import numpy as np
 import random
+from random import randint
 import cv2
 
 
@@ -32,11 +33,6 @@ class CDEDataset(Dataset):
         else:
             image = tr(image)
 
-        # rc = transforms.RandomCrop((182,299))
-        # if self.train:
-        #     image = rc(image)
-        #     gt = rc(gt)
-        
         return image.float(), gt.float()
 
 def read_data(image_name,root_X, root_GT, train = True):
@@ -57,7 +53,7 @@ def read_data(image_name,root_X, root_GT, train = True):
         width, height = image.size
         crop_size = (267,359)
 
-        start = (np.random.randint(0,height - crop_size[0]+1),np.random.randint(0,width - crop_size[1]+1))
+        start = (randint(0,height - crop_size[0]+1),randint(0,width - crop_size[1]+1))
         
         image = image.crop((start[1],start[0],start[1] + crop_size[1],start[0] + crop_size[0]))
         gt = gt[start[0]:(start[0] + crop_size[0]),start[1]:(start[1] + crop_size[1])]
