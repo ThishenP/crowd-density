@@ -23,7 +23,10 @@ def parse_args():
     return args
 def main():
     args = parse_args()
-    wb=True ###############
+    wb=False ###############
+    shut_down = False
+    aspp = True
+    save = False
 
     if wb:
         wandb.init(project="cde", entity="thishen")
@@ -37,10 +40,11 @@ def main():
     device
 
 
-    net = Net([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
+    net = Net([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256, aspp=aspp).to(device)
 
-    root_ims = '../CDE_Data/train/images'
-    root_ann = '../CDE_Data/train/density_gt'
+    print(net)
+    root_ims = '../CDE_Data/train_old/images'
+    root_ann = '../CDE_Data/train_old/density_gt'
     im_list = os.listdir(root_ims)
 
     im_list_train, im_list_train_cv = train_test_split(im_list, test_size=0.14, random_state=42)#test_size=0.14
@@ -71,11 +75,12 @@ def main():
 
     num_epochs = 800
 
-    now = datetime.now()
-    
-    run_start_datetime = now.strftime("%d-%m-%Y_%H-%M-%S")
-    os.mkdir(f'models/{run_start_datetime}')
-    os.mkdir(f'../checkpoints/{run_start_datetime}')
+    if save:
+        now = datetime.now()
+        
+        run_start_datetime = now.strftime("%d-%m-%Y_%H-%M-%S")
+        os.mkdir(f'models/{run_start_datetime}')
+        os.mkdir(f'../checkpoints/{run_start_datetime}')
 
     for epoch in range(num_epochs):  # loop over the dataset multiple times
 
@@ -105,26 +110,28 @@ def main():
         if wb:
             wandb.log({"loss": running_loss/48})
         if epoch%50 == 0: 
+            if save:
+                torch.save({
+                'epoch': epoch,
+                'model_state_dict': net.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': loss,
 
-            torch.save({
-            'epoch': epoch,
-            'model_state_dict': net.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'loss': loss,
+                }, f"../checkpoints/{run_start_datetime}/checkpoint_at_{epoch}.pt")
+                torch.save(net, f"models/{run_start_datetime}/model_at_{epoch}.pt")
+    if save:
+        torch.save({
+                'epoch': epoch,
+                'model_state_dict': net.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': loss,
 
-            }, f"../checkpoints/{run_start_datetime}/checkpoint_at_{epoch}.pt")
-            torch.save(net, f"models/{run_start_datetime}/model_at_{epoch}.pt")
-    
-    torch.save({
-            'epoch': epoch,
-            'model_state_dict': net.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'loss': loss,
-
-            }, f"../checkpoints/{run_start_datetime}/checkpoint_at_{epoch}.pt")
-    torch.save(net, f"models/{run_start_datetime}/model_at_{num_epochs}.pt")
+                }, f"../checkpoints/{run_start_datetime}/checkpoint_at_{epoch}.pt")
+        torch.save(net, f"models/{run_start_datetime}/model_at_{num_epochs}.pt")    
     print('Finished Training')
-
+    
+    if shut_down:
+        os.system('shutdown -s')
 
 if __name__ == '__main__':
     main()
