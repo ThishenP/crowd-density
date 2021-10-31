@@ -57,6 +57,7 @@ def hyper(file, aspp=False):
             "optimizer": np.random.choice(['adam', 'sgd'])
             }
             conf_str = str(config['learning_rate'])+" "+str(config['batch_size'])+" "+str(config['optimizer'])
+        prev_configs.append(conf_str)
         print(i, config)
         val_mae_vals, train_losses = train(config, aspp)
         file.write(f"{i},{conf_str}")
