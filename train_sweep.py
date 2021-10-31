@@ -10,11 +10,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
-from ray import tune
-import pandas as pd
+
 
 from datetime import datetime
-import wandb
+
 
 #FIX ARGS not currenlty in use
 def parse_args():
@@ -112,8 +111,7 @@ def train(config, aspp):
                 ]), train = False)
 
 
-    #train_dataloader = DataLoader(train, batch_size = config["batch_size"], shuffle=True)#batch size of 1 since all different sizes
-    train_dataloader = DataLoader(train, batch_size = int(config["batch_size"]), shuffle=True)#batch size of 1 since all different sizes
+    train_dataloader = DataLoader(train, batch_size = int(config["batch_size"]), shuffle=True)
     val_dataloader = DataLoader(val, batch_size=1, shuffle=False)
 
 
@@ -178,11 +176,6 @@ def train(config, aspp):
     
         
     return mae_vals, train_losses
-                
-
-                
-   
-    
 
 
 if __name__ == '__main__':

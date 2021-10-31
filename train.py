@@ -62,17 +62,11 @@ def main():
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                 ]), train = False)
 
-    root_ims = '../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/images'
-    root_ann = '../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/density_gt'
-    im_list = os.listdir(root_ims)
-    test = CDEDataset(im_list,root_ims,root_ann, transform  = transforms.Compose([
-                    transforms.ToTensor(),
-                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                ]), train = False)
+
 
     train_dataloader = DataLoader(train, batch_size=6, shuffle=True)#batch size of 1 since all different sizes
     val_dataloader = DataLoader(val, batch_size=1, shuffle=False)
-    test_dataloader = DataLoader(test, batch_size=1, shuffle=False)
+
 
     criterion = nn.MSELoss(reduction='sum').to(device)# same as nn.MSELoss(size_average=False)
     
