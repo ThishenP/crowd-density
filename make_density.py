@@ -49,15 +49,15 @@ def preprocess(img_path):
         h5['density'] = density_map(file, gt_path)
         h5.close()
 
-#train_path = "../CDE_Data/train/images"
-#preprocess(train_path)
+train_path = "../CDE_Data/train/images"
+preprocess(train_path)
 #test_path = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/images"
 #preprocess(test_path)
-test_path_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/test_data/images"
-preprocess(test_path_B)
+# test_path_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/test_data/images"
+# preprocess(test_path_B)
 
-train_path_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/train_data/images"
-preprocess(train_path_B)
+# train_path_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/train_data/images"
+# preprocess(train_path_B)
 
 # test_path_UCF = "UCF_CC_50/test_data/images"
 # preprocess(test_path_B)
