@@ -42,7 +42,7 @@ def hyper(file, aspp=False):
         file.write('basic\n')
 
     prev_configs = []
-    num_trains =2
+    num_trains =5
     for i in range(num_trains):
         config={
             "learning_rate": np.random.choice([1e-4, 2e-5 ,1e-5, 1e-7]),
