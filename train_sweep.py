@@ -30,10 +30,39 @@ def main():
 
     file = open(f"sweeps/sweep-{run_start_datetime}.txt", "a")
     
+    config1 = {"learning_rate": 2e-05,"batch_size": 1,"optimizer": "adam" }
+    config2 = {"learning_rate": 1e-07,"batch_size": 1,"optimizer": "sgd" }
+    config3 = {"learning_rate": 2e-05,"batch_size": 8,"optimizer": "adam" }
+    config4 = {"learning_rate": 2e-05,"batch_size": 8,"optimizer": "sgd" }
+    config5 = {"learning_rate": 2e-05,"batch_size": 16,"optimizer": "sgd" }
+
+    configs = [config1,config2,config3,config4,config5]
+
+    for conf in configs:
+        one_config(file, conf,  aspp=False)
+        one_config(file, conf,  aspp=True)
+
     hyper(file)
     hyper(file, aspp = True)
 
-        
+def one_config(file, config,  aspp=False):
+    if aspp:
+        file.write('aspp\n')
+    else:
+        file.write('basic\n')
+    print(config)
+    conf_str = str(config['learning_rate'])+" "+str(config['batch_size'])+" "+str(config['optimizer'])
+    val_mae_vals, train_losses = train(config, aspp)
+    file.write(f"{conf_str}")
+    file.write("\n")
+    for mae in val_mae_vals:
+        file.write(f"{mae},") 
+    file.write("\n")
+    file.write("\n")
+    for los in train_losses:
+        file.write(f"{los},") 
+    file.write("\n")
+
 def hyper(file, aspp=False):
     if aspp:
         file.write('aspp\n')
@@ -42,6 +71,30 @@ def hyper(file, aspp=False):
 
     prev_configs = []
     num_trains =5
+
+
+   
+# 2e-05 1 adam
+# 1e-07 1 sgd
+# 2e-05 8 adam
+# 2e-05 8 sgd
+# 2e-05 16 sgd
+    if not aspp:
+        prev_configs.append("0,1e-05 16 sgd")
+        prev_configs.append("1,2e-05 8 adam")
+        prev_configs.append("2,1e-07 8 adam")
+        prev_configs.append("3,0.0001 1 adam")
+        prev_configs.append("4,0.0001 8 sgd")
+    else:
+        prev_configs.append("0,1e-07 8 sgd")
+        prev_configs.append("1,2e-05 1 adam")
+        prev_configs.append("2,0.0001 1 sgd")
+        prev_configs.append("3,0.0001 16 sgd")
+        prev_configs.append("4,1e-07 1 sgd")
+
+
+
+
     for i in range(num_trains):
         config={
             "learning_rate": np.random.choice([1e-4, 2e-5 ,1e-5, 1e-7]),
@@ -64,6 +117,7 @@ def hyper(file, aspp=False):
         file.write("\n")
         for mae in val_mae_vals:
             file.write(f"{mae},") 
+        file.write("\n")
         file.write("\n")
         for los in train_losses:
             file.write(f"{los},") 
@@ -165,7 +219,7 @@ def train(config, aspp):
                     
                     inputs_val = inputs_val.to(device)
                     labels_val = labels_val.to(device)
-                    outputs_val = net(inputs)
+                    outputs_val = net(inputs_val)
                     
                     pred_count = np.sum(outputs_val[0][0].cpu().detach().numpy())
                     act_count = np.sum(labels_val[0].cpu().detach().numpy())
