@@ -45,6 +45,8 @@ def main():
     hyper(file)
     hyper(file, aspp = True)
 
+    file.close()
+
 def one_config(file, config,  aspp=False):
     if aspp:
         file.write('aspp\n')
@@ -228,8 +230,8 @@ def train(config, aspp):
 
                     mae = np.mean(np.abs(losses))
                     mae_vals.append(mae)
-    
-        
+    conf_str = str(config['learning_rate'])+" "+str(config['batch_size'])+" "+str(config['optimizer'])
+    torch.save(net, f"/sweeps/{conf_str}.pt")    
     return mae_vals, train_losses
 
 
