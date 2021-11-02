@@ -152,7 +152,7 @@ def train(config, aspp):
     root_ims = '../CDE_Data/train/images'
     root_ann = '../CDE_Data/train/density_gt'
     im_list = os.listdir(root_ims)
-    
+
     train = CDEDataset(im_list,root_ims,root_ann, transform = transforms.Compose([
                     transforms.ToTensor(),
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
@@ -179,7 +179,7 @@ def train(config, aspp):
     else:
         optimizer = optim.SGD(net.parameters(), lr=config["learning_rate"], momentum=0.9)
 
-    num_epochs = 400
+    num_epochs = 800
 
     for epoch in range(num_epochs):  # loop over the dataset multiple times
 
@@ -230,8 +230,8 @@ def train(config, aspp):
 
                     mae = np.mean(np.abs(losses))
                     mae_vals.append(mae)
-    conf_str = str(config['learning_rate'])+" "+str(config['batch_size'])+" "+str(config['optimizer'])
-    torch.save(net, f"/sweeps/{conf_str}.pt")    
+    conf_str = str(config['learning_rate'])+"-"+str(config['batch_size'])+"-"+str(config['optimizer'])
+    torch.save(net, f"sweeps/{conf_str}.pt")    
     return mae_vals, train_losses
 
 
