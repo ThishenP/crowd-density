@@ -1,0 +1,1 @@
+{"loss": 0.739171190559864, "_runtime": 31264, "_timestamp": 1636532361, "_step": 4487, "mae-on-validation": 81.83029174804688, "_wandb": {"runtime": 31261}}
