@@ -31,11 +31,16 @@ def main():
     #net = SkipASPPNet(16, 256).to(device)
     #train(net, 'skip-aspp', lr = 1e-6, batch_size=6, epochs = 2000,save = True, wb = True)
     for i in range(5):
+        #no dilation
         net = BaseNet([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
-        train(net, 'base', lr = 2e-5, batch_size=8, epochs = 1200,save = True, wb = True)    
+        train(net, 'base', lr = 2e-5, batch_size=8, epochs = 800,save = True, wb = True)
+
+        #dilation = 2
+        net = BaseNet([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
+        train(net, 'base', lr = 2e-5, batch_size=8, epochs = 800,save = True, wb = True)    
 
         net = ASPPNet([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
-        train(net, 'aspp', lr = 2e-5, batch_size=8, epochs = 1200,save = True, wb = True)
+        train(net, 'aspp', lr = 2e-5, batch_size=8, epochs = 800,save = True, wb = True)
 
 
 def train(net, model_name, lr=1e-6, batch_size=6, epochs = 800, wb = False, shut_down = False, save = False):

@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch
 from torchvision import models, transforms
 
-class BaseNet(nn.Module):
+class BaseNet(nn.Module): #Base Net
     def __init__(self, arc, num_vgg_layers, num_channels_after_vgg):
         super().__init__()
 
@@ -21,7 +21,7 @@ class BaseNet(nn.Module):
 
         return out
 
-class ASPPNet(nn.Module):
+class ASPPNet(nn.Module): #ASPP Net
     def __init__(self, arc, num_vgg_layers, num_channels_after_vgg):
         super().__init__()
 

@@ -47,6 +47,11 @@ def preprocess(img_path):
         print(gt_path)
         h5 = h5py.File(file.replace('.jpg','.h5').replace('images','density_gt'), 'w')
         h5['density'] = density_map(file, gt_path)
+        
+        
+        # save count
+        # h5['count'] = count
+        
         h5.close()
 
 train_path = "../CDE_Data/train/images"

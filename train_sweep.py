@@ -1,4 +1,4 @@
-from model import Net
+from model import BaseNet
 from dataset import CDEDataset
 from torchvision import transforms
 import torch
@@ -30,31 +30,25 @@ def main():
 
     file = open(f"sweeps/sweep-{run_start_datetime}.txt", "a")
     
-    config1 = {"learning_rate": 2e-05,"batch_size": 1,"optimizer": "adam" }
-    config2 = {"learning_rate": 1e-07,"batch_size": 1,"optimizer": "sgd" }
-    config3 = {"learning_rate": 2e-05,"batch_size": 8,"optimizer": "adam" }
-    config4 = {"learning_rate": 2e-05,"batch_size": 8,"optimizer": "sgd" }
-    config5 = {"learning_rate": 2e-05,"batch_size": 16,"optimizer": "sgd" }
+    config1 = {"learning_rate": 5e-05,"batch_size": 8,"optimizer": "adam" }
+    config2 = {"learning_rate": 2e-05,"batch_size": 8,"optimizer": "adam" }
+    config3 = {"learning_rate": 1e-04,"batch_size": 8,"optimizer": "adam" }
+    config4 = {"learning_rate": 1e-06,"batch_size": 8,"optimizer": "adam" }
+    config5 = {"learning_rate": 1e-03,"batch_size": 8,"optimizer": "adam" }
+
 
     configs = [config1,config2,config3,config4,config5]
 
     for conf in configs:
-        one_config(file, conf,  aspp=False)
-        one_config(file, conf,  aspp=True)
-
-    hyper(file)
-    hyper(file, aspp = True)
+        one_config(file, conf)
 
     file.close()
 
-def one_config(file, config,  aspp=False):
-    if aspp:
-        file.write('aspp\n')
-    else:
-        file.write('basic\n')
+def one_config(file, config):
+    file.write('no_dilation\n')
     print(config)
     conf_str = str(config['learning_rate'])+" "+str(config['batch_size'])+" "+str(config['optimizer'])
-    val_mae_vals, train_losses = train(config, aspp)
+    val_mae_vals, train_losses = train(config, dilated2 = False)
     file.write(f"{conf_str}")
     file.write("\n")
     for mae in val_mae_vals:
@@ -130,12 +124,11 @@ def hyper(file, aspp=False):
 
 
 
-def train(config, aspp):
+def train(config, dilated2 = True):
     args = parse_args()
     wb = False ###############
     hp_sweep = True
     shut_down = False
-    aspp = aspp
     save = False
     mae_vals = []
     train_losses = []
@@ -146,17 +139,16 @@ def train(config, aspp):
         device = torch.device("cpu")
     device
 
-
-    net = Net([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256, aspp=aspp).to(device)
+    #no dilation
+    net = BaseNet([(256,1),(256,1), (128,1),(128,1), (64,1), (64,1)], 16, 256).to(device)
 
     root_ims = '../CDE_Data/train/images'
     root_ann = '../CDE_Data/train/density_gt'
     im_list = os.listdir(root_ims)
-
     train = CDEDataset(im_list,root_ims,root_ann, transform = transforms.Compose([
                     transforms.ToTensor(),
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                ]))
+                ]), dilated2 = dilated2)
 
     root_ims = '../CDE_Data/val/images'
     root_ann = '../CDE_Data/val/density_gt'
