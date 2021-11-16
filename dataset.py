@@ -24,9 +24,7 @@ class CDEDataset(Dataset):
         return len(self.im_list)#check if right len
     
     def __getitem__(self,index):
-        image,gt = read_data(self.im_list[index], self.root_X, self.root_y, train = self.train, dilated2 = self.dilated2)
-
-        
+        image,gt, count = read_data(self.im_list[index], self.root_X, self.root_y, train = self.train, dilated2 = self.dilated2)
         tr = transforms.ToTensor()
         gt = tr(gt)
         if self.transform:
@@ -34,7 +32,10 @@ class CDEDataset(Dataset):
         else:
             image = tr(image)
 
-        return image.float(), gt.float()
+        if self.train:
+            return image.float(), gt.float()
+        else:
+            return image.float(), gt.float(), count
 
 def read_data(image_name,root_X, root_GT, train = True, dilated2 = True):
     image_path = root_X + "/" + image_name
@@ -48,6 +49,7 @@ def read_data(image_name,root_X, root_GT, train = True, dilated2 = True):
     gt_path = root_GT + f"/{image_name[:-4]}.h5"
     
     gt = np.asarray(h5py.File(gt_path, 'r')['density'])
+    count = np.asarray(h5py.File(gt_path, 'r')['count'])
 
     gt_shape_dilated2 = (89,66)
     gt_shape_non_dilated = (99,76)
@@ -78,5 +80,5 @@ def read_data(image_name,root_X, root_GT, train = True, dilated2 = True):
     #find better method for above (all in preprocessing?)
 
 
-    return image, target
+    return image, target, count
     

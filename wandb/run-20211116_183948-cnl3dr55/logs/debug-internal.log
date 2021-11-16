@@ -1,0 +1,73 @@
+2021-11-16 18:39:49,883 INFO    MainThread:1456 [internal.py:wandb_internal():86] W&B internal server running at pid: 1456, started at: 2021-11-16 18:39:49.879824
+2021-11-16 18:39:49,884 INFO    WriterThread:1456 [datastore.py:open_for_write():77] open: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\run-cnl3dr55.wandb
+2021-11-16 18:39:49,884 DEBUG   HandlerThread:1456 [handler.py:handle_request():126] handle_request: check_version
+2021-11-16 18:39:49,886 DEBUG   SenderThread:1456 [sender.py:send():185] send: header
+2021-11-16 18:39:49,886 DEBUG   SenderThread:1456 [sender.py:send_request():199] send_request: check_version
+2021-11-16 18:39:49,934 DEBUG   SenderThread:1456 [sender.py:send():185] send: run
+2021-11-16 18:39:50,423 INFO    SenderThread:1456 [dir_watcher.py:__init__():169] watching files in: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files
+2021-11-16 18:39:50,423 INFO    SenderThread:1456 [sender.py:_start_run_threads():746] run started: cnl3dr55 with start time 1637080788
+2021-11-16 18:39:50,423 DEBUG   SenderThread:1456 [sender.py:send():185] send: summary
+2021-11-16 18:39:50,423 DEBUG   HandlerThread:1456 [handler.py:handle_request():126] handle_request: run_start
+2021-11-16 18:39:50,423 INFO    SenderThread:1456 [sender.py:_save_file():879] saving file wandb-summary.json with policy end
+2021-11-16 18:39:50,437 DEBUG   HandlerThread:1456 [meta.py:__init__():40] meta init
+2021-11-16 18:39:50,437 DEBUG   HandlerThread:1456 [meta.py:__init__():54] meta init done
+2021-11-16 18:39:50,437 DEBUG   HandlerThread:1456 [meta.py:probe():211] probe
+2021-11-16 18:39:50,451 DEBUG   HandlerThread:1456 [meta.py:_setup_git():201] setup git
+2021-11-16 18:39:50,515 DEBUG   HandlerThread:1456 [meta.py:_setup_git():208] setup git done
+2021-11-16 18:39:50,516 DEBUG   HandlerThread:1456 [meta.py:_save_pip():58] save pip
+2021-11-16 18:39:50,516 DEBUG   HandlerThread:1456 [meta.py:_save_pip():72] save pip done
+2021-11-16 18:39:50,517 DEBUG   HandlerThread:1456 [meta.py:_save_conda():79] save conda
+2021-11-16 18:39:51,439 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_created():217] file/dir created: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\requirements.txt
+2021-11-16 18:39:51,440 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_created():217] file/dir created: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\conda-environment.yaml
+2021-11-16 18:39:51,440 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_created():217] file/dir created: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-summary.json
+2021-11-16 18:39:55,453 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_created():217] file/dir created: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\output.log
+2021-11-16 18:39:56,455 DEBUG   HandlerThread:1456 [meta.py:_save_conda():87] save conda done
+2021-11-16 18:39:56,455 DEBUG   HandlerThread:1456 [meta.py:probe():249] probe done
+2021-11-16 18:39:56,457 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_created():217] file/dir created: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-metadata.json
+2021-11-16 18:39:56,528 DEBUG   HandlerThread:1456 [handler.py:handle_request():126] handle_request: stop_status
+2021-11-16 18:39:56,528 DEBUG   SenderThread:1456 [sender.py:send_request():199] send_request: stop_status
+2021-11-16 18:39:56,817 DEBUG   SenderThread:1456 [sender.py:send():185] send: files
+2021-11-16 18:39:56,818 INFO    SenderThread:1456 [sender.py:_save_file():879] saving file wandb-metadata.json with policy now
+2021-11-16 18:39:58,009 INFO    Thread-17 :1456 [upload_job.py:push():137] Uploaded file C:\Users\Thishen\AppData\Local\Temp\tmpu3g64cnmwandb\3vxzv4j8-wandb-metadata.json
+2021-11-16 18:40:11,822 DEBUG   HandlerThread:1456 [handler.py:handle_request():126] handle_request: stop_status
+2021-11-16 18:40:11,822 DEBUG   SenderThread:1456 [sender.py:send_request():199] send_request: stop_status
+2021-11-16 18:40:16,429 DEBUG   SenderThread:1456 [sender.py:send():185] send: history
+2021-11-16 18:40:16,429 DEBUG   SenderThread:1456 [sender.py:send():185] send: summary
+2021-11-16 18:40:16,430 INFO    SenderThread:1456 [sender.py:_save_file():879] saving file wandb-summary.json with policy end
+2021-11-16 18:40:16,578 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_modified():230] file/dir modified: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-summary.json
+2021-11-16 18:40:18,586 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_modified():230] file/dir modified: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\output.log
+2021-11-16 18:40:22,088 DEBUG   SenderThread:1456 [sender.py:send():185] send: stats
+2021-11-16 18:40:27,134 DEBUG   HandlerThread:1456 [handler.py:handle_request():126] handle_request: stop_status
+2021-11-16 18:40:27,134 DEBUG   SenderThread:1456 [sender.py:send_request():199] send_request: stop_status
+2021-11-16 18:40:27,949 DEBUG   SenderThread:1456 [sender.py:send():185] send: history
+2021-11-16 18:40:27,949 DEBUG   SenderThread:1456 [sender.py:send():185] send: summary
+2021-11-16 18:40:27,951 INFO    SenderThread:1456 [sender.py:_save_file():879] saving file wandb-summary.json with policy end
+2021-11-16 18:40:28,632 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_modified():230] file/dir modified: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-summary.json
+2021-11-16 18:40:42,467 DEBUG   HandlerThread:1456 [handler.py:handle_request():126] handle_request: stop_status
+2021-11-16 18:40:42,467 DEBUG   SenderThread:1456 [sender.py:send_request():199] send_request: stop_status
+2021-11-16 18:40:48,216 DEBUG   SenderThread:1456 [sender.py:send():185] send: history
+2021-11-16 18:40:48,216 DEBUG   SenderThread:1456 [sender.py:send():185] send: summary
+2021-11-16 18:40:48,217 INFO    SenderThread:1456 [sender.py:_save_file():879] saving file wandb-summary.json with policy end
+2021-11-16 18:40:48,740 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_modified():230] file/dir modified: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-summary.json
+2021-11-16 18:40:50,754 INFO    Thread-12 :1456 [dir_watcher.py:_on_file_modified():230] file/dir modified: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\output.log
+2021-11-16 18:40:51,214 WARNING MainThread:1456 [internal.py:wandb_internal():145] Internal process interrupt: 1
+2021-11-16 18:40:51,654 WARNING MainThread:1456 [internal.py:wandb_internal():145] Internal process interrupt: 2
+2021-11-16 18:40:51,654 ERROR   MainThread:1456 [internal.py:wandb_internal():148] Internal process interrupted.
+2021-11-16 18:40:51,883 INFO    SenderThread:1456 [sender.py:finish():986] shutting down sender
+2021-11-16 18:40:51,883 INFO    WriterThread:1456 [datastore.py:close():281] close: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\run-cnl3dr55.wandb
+2021-11-16 18:40:51,883 INFO    SenderThread:1456 [dir_watcher.py:finish():283] shutting down directory watcher
+2021-11-16 18:40:51,883 INFO    HandlerThread:1456 [handler.py:finish():683] shutting down handler
+2021-11-16 18:40:52,763 INFO    SenderThread:1456 [dir_watcher.py:finish():313] scan: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files
+2021-11-16 18:40:52,765 INFO    SenderThread:1456 [dir_watcher.py:finish():327] scan save: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\conda-environment.yaml conda-environment.yaml
+2021-11-16 18:40:52,766 INFO    SenderThread:1456 [dir_watcher.py:finish():327] scan save: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\config.yaml config.yaml
+2021-11-16 18:40:52,767 INFO    SenderThread:1456 [dir_watcher.py:finish():327] scan save: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\output.log output.log
+2021-11-16 18:40:52,776 INFO    SenderThread:1456 [dir_watcher.py:finish():327] scan save: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\requirements.txt requirements.txt
+2021-11-16 18:40:52,780 INFO    SenderThread:1456 [dir_watcher.py:finish():327] scan save: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-metadata.json wandb-metadata.json
+2021-11-16 18:40:52,790 INFO    SenderThread:1456 [dir_watcher.py:finish():327] scan save: C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-summary.json wandb-summary.json
+2021-11-16 18:40:52,803 INFO    SenderThread:1456 [file_pusher.py:finish():177] shutting down file pusher
+2021-11-16 18:40:52,804 INFO    SenderThread:1456 [file_pusher.py:join():182] waiting for file pusher
+2021-11-16 18:40:53,821 INFO    Thread-18 :1456 [upload_job.py:push():137] Uploaded file C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\config.yaml
+2021-11-16 18:40:53,983 INFO    Thread-20 :1456 [upload_job.py:push():137] Uploaded file C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\requirements.txt
+2021-11-16 18:40:53,997 INFO    Thread-19 :1456 [upload_job.py:push():137] Uploaded file C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\output.log
+2021-11-16 18:40:54,002 INFO    Thread-21 :1456 [upload_job.py:push():137] Uploaded file C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211116_183948-cnl3dr55\files\wandb-summary.json
+2021-11-16 18:40:54,950 INFO    MainThread:1456 [internal.py:handle_exit():76] Internal process exited

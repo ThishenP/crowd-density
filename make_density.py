@@ -21,6 +21,8 @@ def density_map(img_path ,mat_gt_path):
     
     coords_int = coords.astype(int)
 
+    headcount = coords.shape[0]
+
     if len(image.shape)==3:
         gt = np.zeros_like(image[:,:,0])
     else:
@@ -37,32 +39,47 @@ def density_map(img_path ,mat_gt_path):
 
     dense = gaussian_filter(gt.astype(float),sigma =15)
     #a = gaussian_filter(np.random.randint(0,100,[20,20]),sigma =15)
-    return dense
+    return dense, headcount
 
-def preprocess(img_path):
-    
+def preprocess_SH(img_path):
+
     for file in glob.glob(f"{img_path}/*.jpg"):
         print(file)
         gt_path = file.replace('\\','/').replace('images/','ground-truth/GT_').replace(".jpg",".mat")
         print(gt_path)
         h5 = h5py.File(file.replace('.jpg','.h5').replace('images','density_gt'), 'w')
-        h5['density'] = density_map(file, gt_path)
-        
-        
-        # save count
-        # h5['count'] = count
+        density, count =  density_map(file, gt_path)
+        h5['density'] = density
+        h5['count'] = count
         
         h5.close()
 
+def preprocess_UCF(path):
+    print(path)
+    for file in glob.glob(f"{path}/*.jpg"):
+        print(file)
+        gt_path = file.replace('\\','/').replace('images/','ground-truth/').replace(".jpg","_ann.mat")
+        print(gt_path)
+        h5 = h5py.File(file.replace('.jpg','.h5').replace('images','density_gt'), 'w')
+        density, count =  density_map(file, gt_path)
+        h5['density'] = density
+        h5['count'] = count
+        
+        h5.close()
+
+
+
+
 train_path = "../CDE_Data/train/images"
-preprocess(train_path)
-#test_path = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/images"
-#preprocess(test_path)
-# test_path_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/test_data/images"
-# preprocess(test_path_B)
+preprocess_SH(train_path)
 
-# train_path_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/train_data/images"
-# preprocess(train_path_B)
+val_path = "../CDE_Data/val/images"
+preprocess_SH(val_path)
 
-# test_path_UCF = "UCF_CC_50/test_data/images"
-# preprocess(test_path_B)
+# test_path_SH_A = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_A/test_data/images"
+# preprocess_SH(test_path_SH_A)
+# test_path_SH_B = "../CDE_Data/ShanghaiTech/ShanghaiTech/part_B/test_data/images"
+# preprocess_SH(test_path_SH_B)
+
+# test_path_UCF = "../CDE_Data/UCF_CC_50/images"
+# preprocess_UCF(test_path_UCF)

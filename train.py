@@ -127,7 +127,7 @@ def train(net, model_name, lr=1e-6, batch_size=6, epochs = 800, wb = False, shut
             with torch.no_grad():    
                 for i, data in enumerate(val_dataloader, 0):
                     # evaluate the model on the test set
-                    inputs_val, labels_val = data
+                    inputs_val, labels_val, count = data
 
                     inputs_val = inputs_val.to(device)
                     labels_val = labels_val.to(device)

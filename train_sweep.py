@@ -208,7 +208,7 @@ def train(config, dilated2 = True):
             with torch.no_grad():    
                 for i, data in enumerate(val_dataloader, 0):
                     # evaluate the model on the test set
-                    inputs_val, labels_val = data
+                    inputs_val, labels_val, count = data
                     
                     
                     inputs_val = inputs_val.to(device)
