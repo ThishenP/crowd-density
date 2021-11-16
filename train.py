@@ -31,19 +31,20 @@ def main():
     #net = SkipASPPNet(16, 256).to(device)
     #train(net, 'skip-aspp', lr = 1e-6, batch_size=6, epochs = 2000,save = True, wb = True)
     for i in range(5):
+    
+        net = ASPPNet([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
+        train(net, 'aspp', lr = 2e-5, batch_size=8, epochs = 800,save = False, wb = False, dilated2 = True)
+
         #no dilation
         net = BaseNet([(256,1),(256,1), (128,1),(128,1), (64,1), (64,1)], 16, 256).to(device)
-        train(net, 'conv', lr = 5e-5, batch_size=8, epochs = 800,save = True, wb = True)
-
+        train(net, 'conv', lr = 5e-5, batch_size=8, epochs = 800,save = False, wb = False, dilated2 = False)
+        
         #dilation = 2
         net = BaseNet([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
-        train(net, 'base', lr = 2e-5, batch_size=8, epochs = 800,save = True, wb = True)    
-
-        net = ASPPNet([(256,2),(256,2), (128,2),(128,2), (64,2), (64,2)], 16, 256).to(device)
-        train(net, 'aspp', lr = 2e-5, batch_size=8, epochs = 800,save = True, wb = True)
+        train(net, 'base', lr = 2e-5, batch_size=8, epochs = 800,save = False, wb = False, dilated2 = True)  
 
 
-def train(net, model_name, lr=1e-6, batch_size=6, epochs = 800, wb = False, shut_down = False, save = False):
+def train(net, model_name, lr=1e-6, batch_size=6, epochs = 800, wb = False, shut_down = False, save = False, dilated2 = True):
     print(f"training {model_name}")
     if torch.cuda.is_available(): 
         device = torch.device("cuda:0")
@@ -62,7 +63,7 @@ def train(net, model_name, lr=1e-6, batch_size=6, epochs = 800, wb = False, shut
     train = CDEDataset(im_list,root_ims,root_ann, transform = transforms.Compose([
                     transforms.ToTensor(),
                     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                ]), dilated2 = False)
+                ]), dilated2 = dilated2)
 
     root_ims = '../CDE_Data/val/images'
     root_ann = '../CDE_Data/val/density_gt'
@@ -122,7 +123,7 @@ def train(net, model_name, lr=1e-6, batch_size=6, epochs = 800, wb = False, shut
             wandb.log({"loss": epoch_loss})
 
 
-        if epoch%200 == 0: 
+        if epoch%100 == 0: 
             val_losses = []
             with torch.no_grad():    
                 for i, data in enumerate(val_dataloader, 0):
