@@ -1,0 +1,24 @@
+2021-11-17 08:08:15,788 INFO    MainThread:24404 [wandb_setup.py:_flush():71] setting env: {}
+2021-11-17 08:08:15,788 INFO    MainThread:24404 [wandb_setup.py:_flush():71] setting login settings: {}
+2021-11-17 08:08:15,789 INFO    MainThread:24404 [wandb_init.py:_log_setup():357] Logging user logs to C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211117_080815-1yxb0jwr\logs\debug.log
+2021-11-17 08:08:15,789 INFO    MainThread:24404 [wandb_init.py:_log_setup():358] Logging internal logs to C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211117_080815-1yxb0jwr\logs\debug-internal.log
+2021-11-17 08:08:15,789 INFO    MainThread:24404 [wandb_init.py:init():390] calling init triggers
+2021-11-17 08:08:15,789 INFO    MainThread:24404 [wandb_init.py:init():395] wandb.init called with sweep_config: {}
+config: {}
+2021-11-17 08:08:15,789 INFO    MainThread:24404 [wandb_init.py:init():432] wandb.init() called when a run is still active
+2021-11-17 09:34:00,525 INFO    MainThread:24404 [wandb_setup.py:_flush():71] setting env: {}
+2021-11-17 09:34:00,526 INFO    MainThread:24404 [wandb_setup.py:_flush():71] setting login settings: {}
+2021-11-17 09:34:00,526 INFO    MainThread:24404 [wandb_init.py:_log_setup():357] Logging user logs to C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211117_093400-2z2xybqr\logs\debug.log
+2021-11-17 09:34:00,526 INFO    MainThread:24404 [wandb_init.py:_log_setup():358] Logging internal logs to C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211117_093400-2z2xybqr\logs\debug-internal.log
+2021-11-17 09:34:00,526 INFO    MainThread:24404 [wandb_init.py:init():390] calling init triggers
+2021-11-17 09:34:00,526 INFO    MainThread:24404 [wandb_init.py:init():395] wandb.init called with sweep_config: {}
+config: {}
+2021-11-17 09:34:00,527 INFO    MainThread:24404 [wandb_init.py:init():432] wandb.init() called when a run is still active
+2021-11-17 11:00:43,890 INFO    MainThread:24404 [wandb_setup.py:_flush():71] setting env: {}
+2021-11-17 11:00:43,890 INFO    MainThread:24404 [wandb_setup.py:_flush():71] setting login settings: {}
+2021-11-17 11:00:43,891 INFO    MainThread:24404 [wandb_init.py:_log_setup():357] Logging user logs to C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211117_110043-1h211xn9\logs\debug.log
+2021-11-17 11:00:43,891 INFO    MainThread:24404 [wandb_init.py:_log_setup():358] Logging internal logs to C:\Users\Thishen\Documents\GitHub\crowd-density\wandb\run-20211117_110043-1h211xn9\logs\debug-internal.log
+2021-11-17 11:00:43,891 INFO    MainThread:24404 [wandb_init.py:init():390] calling init triggers
+2021-11-17 11:00:43,891 INFO    MainThread:24404 [wandb_init.py:init():395] wandb.init called with sweep_config: {}
+config: {}
+2021-11-17 11:00:43,891 INFO    MainThread:24404 [wandb_init.py:init():432] wandb.init() called when a run is still active

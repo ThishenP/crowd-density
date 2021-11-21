@@ -1,0 +1,18 @@
+{
+    "os": "Windows-10-10.0.22000-SP0",
+    "python": "3.8.8",
+    "heartbeatAt": "2021-11-17T23:17:28.830228",
+    "startedAt": "2021-11-17T23:17:25.918317",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "train.py",
+    "codePath": "train.py",
+    "host": "KiashanPC",
+    "username": "Thishen",
+    "executable": "C:\\Users\\Thishen\\anaconda3\\python.exe"
+}
