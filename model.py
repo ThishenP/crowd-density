@@ -6,7 +6,7 @@ class BaseNet(nn.Module): #Base Net
     def __init__(self, arc, num_vgg_layers, num_channels_after_vgg):
         super().__init__()
 
-        vgg16 = models.vgg16_bn(pretrained=True)
+        vgg16 = models.vgg16(pretrained=True)
         for param in vgg16.features.parameters():
             param.require_grad = False
         self.vgg_layers = vgg16.features[:num_vgg_layers]
